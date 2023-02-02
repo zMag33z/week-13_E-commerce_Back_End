@@ -9,9 +9,23 @@ router.get('/', (req, res) => {
 });
 
 //  GET single category by id
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   // find one category by its `id` value
   // be sure to include its associated Products
+  try {
+    const readerData = await Category.findByPk(req.params.id, {
+      include: [{ id: LibraryCard }, {category_name: Book}],
+    });
+
+    if (!readerData) {
+      res.status(404).json({ message: 'Category Id not found.' });
+      return;
+    }
+
+    res.status(200).json(readerData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 // POST response to request of creating new category
