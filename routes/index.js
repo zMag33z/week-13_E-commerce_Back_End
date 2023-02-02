@@ -1,3 +1,4 @@
+// Require router to receive request to api folder for routes inside routes/index.js.
 const router = require('express').Router();
 const apiRoutes = require('./api');
 

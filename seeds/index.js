@@ -1,3 +1,4 @@
+// Require seeds for npm run seed
 const seedCategories = require('./category-seeds');
 const seedProducts = require('./product-seeds');
 const seedTags = require('./tag-seeds');
