@@ -12,4 +12,4 @@ then npm start
 
 use insomnia to call paths for request or use paths for post and put and delete
 
-
+show results in video

@@ -2,9 +2,11 @@
 //  Require- two classes to sequelize Model constructor.
 const router = require('express').Router();
 const { Category, Product } = require('../../models');
+const { update } = require('../../models/Tag');
 
 
 //  GET all categories
+// http://localhost:3001/api/categories
 router.get('/', async (req, res) => {
   try {
     const allproductCategories = await Category.findAll({
@@ -24,6 +26,7 @@ router.get('/', async (req, res) => {
 
 
 //  GET single category by id
+// http://localhost:3001/api/categories/1
 router.get('/:id', async (req, res) => {
   try {
     const productsByCategory = await Category.findByPk(req.params.id, {
@@ -48,6 +51,10 @@ router.get('/:id', async (req, res) => {
 
 
 // POST response to request of creating new category
+// http://localhost:3001/api/categories
+// {
+//   "category_name": "underwear"
+// }
 router.post('/', async (req, res) => {
   try {
     const createCategory = await Category.create({
@@ -61,28 +68,37 @@ router.post('/', async (req, res) => {
 
 
 // PUT response to request to update category by id
+// http://localhost:3001/api/categories/6
+// {
+//   "category_name": "undergarments"
+// }
 router.put('/:id', async (req, res) => {
   try {
+    console.log(req.body.category_name);
     const updateCategory = await Category.update(
+      req.body,
       {
         where: {
           id: req.params.id,
         }
-    });
+      }
+    );
 
     if (!updateCategory) {
       res.status(404).json({ message: 'Category not found!' });
       return;
     }
-
+    console.log('update',updateCategory);
     res.status(200).json(updateCategory);
   } catch (err) {
+    console.log(err)
     res.status(500).json(err);
   }
 });
 
 
 //  DELETE response to request to remove category by id
+// http://localhost:3001/api/categories/6
 router.delete('/:id', async (req, res) => {
   try {
     const removeCategory = await Category.destroy({
