@@ -4,24 +4,24 @@ const Category = require('./Category');
 const Tag = require('./Tag');
 const ProductTag = require('./ProductTag');
 
-// Called References of foreign keys to Primary keys.
-// Products belong to one Category
+// Call References of Foreign keys to Primary keys.
+// Certain Products belong to one Certain Category
 Product.belongsTo(Category, {
   foreignKey: 'category_id'
 });
 
-// A Category can have many products
+// A Single Category can have Many Products
 Category.hasMany(Product, {
   foreignKey: 'category_id'
 });
 
-// Products belong to many tags through specific product tag
+// Products belong to Many Tags through specific Product-tag
 Product.belongsToMany(Tag, {
   through: ProductTag,
   foreignKey: 'product_id'
 });
 
-// Tags belong to many other product tags
+// Tags belong to Many Products through specific Product-tag
 Tag.belongsToMany(Product, {
   through: ProductTag,
   foreignKey: 'tag_id'
