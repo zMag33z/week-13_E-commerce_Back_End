@@ -2,7 +2,6 @@
 //  Require- two classes to sequelize Model constructor.
 const router = require('express').Router();
 const { Category, Product } = require('../../models');
-const { update } = require('../../models/Tag');
 
 
 //  GET all categories
@@ -88,7 +87,6 @@ router.put('/:id', async (req, res) => {
       res.status(404).json({ message: 'Category not found!' });
       return;
     }
-    console.log('update',updateCategory);
     res.status(200).json(updateCategory);
   } catch (err) {
     console.log(err)
