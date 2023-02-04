@@ -1,19 +1,68 @@
-//  Requiring all models and router from api/index.js.
+//  Create paths with router.
+//  Require- four classes to sequelize Model constructor.
 const router = require('express').Router();
 const { Product, Category, Tag, ProductTag } = require('../../models');
 
 
 // GET all products
-router.get('/', (req, res) => {
-  // find all products
-  // be sure to include its associated Category and Tag data
+router.get('/', async (req, res) => {
+  try {
+    const allProducts = await Product.findAll({
+        attributes: ['id', 'product_name', 'price', 'stock', 'category_id'],
+        include: [
+          {
+            model: Category,
+            attributes: ['id', 'category_name']
+          },
+          {
+            model: Tag,
+            attributes: ['id, tag_name', 'product_tag'],
+          },
+          {
+            model: ProductTag,
+            attributes: ['id', 'product_id', 'tag_id']
+          }
+        ]
+    });
+    res.status(200).json(allProducts);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
+
 // GET single product by id
-router.get('/:id', (req, res) => {
-  // find a single product by its `id`
-  // be sure to include its associated Category and Tag data
+router.get('/:id', async (req, res) => {
+  try {
+    const singleProduct = await Product.findByPk(req.params.id, {
+      attributes: ['id', 'product_name', 'price', 'stock', 'category_id'],
+      include: [
+        {
+          model: Category,
+          attributes: ['id', 'category_name']
+        },
+        {
+          model: Tag,
+          attributes: ['id', 'tag_name']
+        },
+        {
+          model: ProductTag,
+          attributes: ['id', 'product_id', 'tag_id']
+        }
+      ]
+    });
+
+    if (!singleProduct) {
+      res.status(404).json({ message: 'Category not found!' });
+      return;
+    }
+
+    res.status(200).json(singleProduct);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
+
 
 // POST response to request create per specifics
 router.post('/', (req, res) => {
@@ -46,6 +95,7 @@ router.post('/', (req, res) => {
       res.status(400).json(err);
     });
 });
+
 
 // PUT response to request to update product by id
 router.put('/:id', (req, res) => {
@@ -87,6 +137,7 @@ router.put('/:id', (req, res) => {
       res.status(400).json(err);
     });
 });
+
 
 // DELETE response to request to remove product by id
 router.delete('/:id', (req, res) => {

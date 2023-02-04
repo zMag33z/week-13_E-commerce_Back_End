@@ -1,4 +1,5 @@
-// Require router to receive request from routes/index.js and require specific routes to object and tag route with specifics.
+// Required from routes/index.
+// Create paths with router.
 const router = require('express').Router();
 const categoryRoutes = require('./category-routes');
 const productRoutes = require('./product-routes');

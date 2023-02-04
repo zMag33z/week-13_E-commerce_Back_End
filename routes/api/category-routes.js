@@ -1,4 +1,5 @@
-//  Require- two classes to sequelize Model constructor and router received from api/index.js.
+//  Create paths with router.
+//  Require- two classes to sequelize Model constructor.
 const router = require('express').Router();
 const { Category, Product } = require('../../models');
 
@@ -7,7 +8,7 @@ const { Category, Product } = require('../../models');
 router.get('/', async (req, res) => {
   try {
     const allproductCategories = await Category.findAll({
-        attributes: ['id, category_name'],
+        attributes: ['id', 'category_name'],
         include: [
           {
             model: Product,
@@ -24,7 +25,6 @@ router.get('/', async (req, res) => {
 
 //  GET single category by id
 router.get('/:id', async (req, res) => {
-
   try {
     const productsByCategory = await Category.findByPk(req.params.id, {
       include: [
