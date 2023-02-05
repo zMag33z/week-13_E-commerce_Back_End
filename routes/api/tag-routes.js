@@ -50,6 +50,11 @@ router.get('/:id', async (req, res) => {
 
 // POST response to request to create new tag to specifics
 // http://localhost:3001/api/tags/
+/*
+{
+  "tag_name": "sports"
+}
+*/
 router.post('/', async (req, res) => {
   try {
     const createTag = await Tag.create(req.body.tag_name);
@@ -61,6 +66,11 @@ router.post('/', async (req, res) => {
 
 // PUT response to request to update tag by id
 // http://localhost:3001/api/tags/9
+/*
+{
+  "tag_name": "athletics"
+}
+*/
 router.put('/:id', async (req, res) => {
   try {
     console.log(req.body.category_name);
