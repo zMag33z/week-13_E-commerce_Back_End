@@ -93,7 +93,7 @@ router.post('/', (req, res) => {
 
 
 // PUT response to request to update product by id
-// http://localhost:3001/api/products/8
+// http://localhost:3001/api/products/6
 /*
 {
   "product_name": "Basketball",
@@ -144,7 +144,7 @@ router.put('/:id', (req, res) => {
 
 
 // DELETE response to request to remove product by id
-// http://localhost:3001/api/products/8
+// http://localhost:3001/api/products/6
 router.delete('/:id', async (req, res) => {
   try {
     const removeProduct = await Product.destroy({
