@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
 });
 
 // GET response to request single tag by id
-// http://localhost:3001/api/tags/
+// http://localhost:3001/api/tags/1
 router.get('/:id', async (req, res) => {
   try {
     const singleTag = await Tag.findByPk(req.params.id, {
@@ -57,7 +57,7 @@ router.get('/:id', async (req, res) => {
 */
 router.post('/', async (req, res) => {
   try {
-    const createTag = await Tag.create(req.body.tag_name);
+    const createTag = await Tag.create(req.body);
     res.status(200).json(createTag);
   } catch (err) {
     res.status(500).json({ message: 'Internal Server Error!' });
