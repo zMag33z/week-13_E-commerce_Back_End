@@ -47,7 +47,7 @@ router.get('/:id', async (req, res) => {
     });
 
     if (!singleProduct) {
-      res.status(404).json({ message: 'Category not found!' });
+      res.status(404).json({ message: 'Product not found!' });
       return;
     }
 
@@ -60,8 +60,7 @@ router.get('/:id', async (req, res) => {
 
 // POST response to request create per specifics
 // http://localhost:3001/api/products/
-router.post('/', (req, res) => {
-  /* req.body should look like this...
+  /*
 {
   "product_name": "Basketball",
 	"price": 200.00,
@@ -69,6 +68,7 @@ router.post('/', (req, res) => {
 	"tagIds": [1, 2, 3, 4]
 }
   */
+router.post('/', (req, res) => {
   Product.create(req.body)
     .then((product) => {
       // if there's product tags, we need to create pairings to bulk create in the ProductTag model
@@ -147,18 +147,18 @@ router.put('/:id', (req, res) => {
 // http://localhost:3001/api/products/8
 router.delete('/:id', async (req, res) => {
   try {
-    const removeCategory = await Product.destroy({
+    const removeProduct = await Product.destroy({
       where: {
         id: req.params.id,
       },
     });
 
-    if (!removeCategory) {
-      res.status(404).json({ message: 'Category not found!' });
+    if (!removeProduct) {
+      res.status(404).json({ message: 'Product not found!' });
       return;
     }
 
-    res.status(200).json(removeCategory);
+    res.status(200).json(removeProduct);
   } catch (err) {
     res.status(500).json(err);
   }
