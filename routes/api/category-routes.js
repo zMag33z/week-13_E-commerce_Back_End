@@ -51,9 +51,11 @@ router.get('/:id', async (req, res) => {
 
 // POST response to request of creating new category
 // http://localhost:3001/api/categories
-// {
-//   "category_name": "underwear"
-// }
+/*
+{
+  "category_name": "underwear"
+}
+*/
 router.post('/', async (req, res) => {
   try {
     const createCategory = await Category.create({
@@ -68,9 +70,11 @@ router.post('/', async (req, res) => {
 
 // PUT response to request to update category by id
 // http://localhost:3001/api/categories/6
-// {
-//   "category_name": "undergarments"
-// }
+/*
+{
+  "category_name": "undergarments"
+}
+*/
 router.put('/:id', async (req, res) => {
   try {
     console.log(req.body.category_name);
